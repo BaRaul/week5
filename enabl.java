@@ -54,27 +54,28 @@ public class enabl {
 		
 		
 		@Test
-		public void notVisibleTest() {
-			// open the page http://the-internet.herokuapp.com/dynamic_loading/1
-			driver.get("http://the-internet.herokuapp.com/dynamic_loading/1");
+		public void ducase() {
+			// open the page http://the-internet.herokuapp.com/dynamic_controls
+			driver.get("https://the-internet.herokuapp.com/dynamic_controls");
 			
-			// Find locator for startButton and click on it
-			WebElement startButton = driver.findElement(By.xpath("//div[@id='start']/button"));
-			startButton.click();
+			// Find locator for remove Button and click on it
+			WebElement removeButton = driver.findElement(By.xpath("//*[@id=\"checkbox-example\"]/button"));
+			removeButton.click();
+			
+			//find locator for checkbox to make sure it disappears later
+			WebElement checkbox = driver.findElement(By.xpath("//*[@id=\"checkbox-example\"]/div[1]"));
 			
 			// Then get finish element text
-			WebElement finishElement = driver.findElement(By.id("finish"));
-			
 			WebDriverWait wait = new WebDriverWait(driver, 10);
-			wait.until(ExpectedConditions.visibilityOf(finishElement));
+			wait.until(ExpectedConditions.invisibilityOf(checkbox));
 			
+			WebElement finishElement = driver.findElement(By.xpath("//*[@id=\"message\"]"));
+						
 			String finishText = finishElement.getText();
 			
 			// compare actual finish element text with expected "Hello World!" using Test NG Assert class
-			Assert.assertTrue(finishText.contains("Hello World!"), "Finish text: " + finishText);
-			
-			//startButton.click();
-			
+			Assert.assertTrue(finishText.contains("It's gone!"));
+/**/			
 		}
 		
 		
